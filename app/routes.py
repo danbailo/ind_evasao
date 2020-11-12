@@ -1,6 +1,20 @@
+from flask import render_template, flash, redirect, url_for
 from app import app
+from app.forms import LoginForm
 
-@app.route('/')
-@app.route('/index')
+@app.route("/")
+@app.route("/index")
 def index():
-    return "Hello, World!"
+    user = {"username": "Daniel"}
+    posts = [
+        {
+            "author": {"username": "Daniel"},
+            "body": "Beautiful day in Portland!"
+        },
+        {
+            "author": {"username": "Susan"},
+            "body": "The Avengers movie was so cool!"
+        }
+    ]    
+    return render_template("index.html", title="Home", user=user, posts=posts)
+
