@@ -2,9 +2,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from datetime import datetime
 import uuid
+from flask_login import UserMixin
+from app import login
 
-
-class User(db.Document):
+class User(UserMixin, db.Document):
     _id = db.StringField(primary_key=True, default=uuid.uuid4().hex,required=True) #mongodb autoimplemnt this field
     username = db.StringField(max_length=64, min_length=4, unique=True, required=True)
     password_hash = db.StringField(max_length=64, min_length=4, required=True)
@@ -18,6 +19,10 @@ class User(db.Document):
 
     def __repr__(self):
         return f"<User {self.username}>"
+
+@login.user_loader
+def load_user(_id):
+    return User.objects.first(_id=_id)
 
 class Form(db.Document):
     _id = db.StringField(primary_key=True, default=uuid.uuid4().hex, required=True) #mongodb autoimplemnt this field
