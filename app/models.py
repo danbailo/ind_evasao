@@ -13,7 +13,7 @@ class User(db.Document):
         return f"<User {self.username}>"
 
 class Form(db.Document):
-    _id = db.StringField(primary_key=True, required=True) #mongodb autoimplemnt this field
+    _id = db.StringField(primary_key=True, default=uuid.uuid4().hex, required=True) #mongodb autoimplemnt this field
     answer_1 = db.BooleanField(required=True)
     answer_2 = db.BooleanField(required=True)
     answer_3 = db.BooleanField(required=True)
