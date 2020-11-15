@@ -6,11 +6,14 @@ from flask_login import UserMixin
 from app import login
 
 class User(UserMixin, db.Document):
-    # _id = db.StringField(primary_key=True,required=True) #mongodb autoimplemnt this field
-    name = db.StringField(max_length=128, min_length=4, required=True)
-    username = db.StringField(max_length=64, min_length=4, unique=True, required=True)
-    password_hash = db.StringField(max_length=64, min_length=4, required=True)
-    email = db.EmailField(max_length=128, min_length=4, unique=True, required=True)
+    _id = db.StringField(primary_key=True,required=True) #mongodb autoimplemnt this field
+    name = db.StringField(required=True)
+    username = db.StringField(unique=True, required=True)
+    password_hash = db.StringField(required=True)
+    email = db.EmailField(unique=True, required=True)
+
+    def set_id(self, _id):
+        self._id = _id
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -22,8 +25,8 @@ class User(UserMixin, db.Document):
         return f"<User {self.username}>"
 
 @login.user_loader
-def load_user(id):
-    return User.objects(id=id).first()
+def load_user(_id):
+    return User.objects(_id=_id).first()
 
 
 class Form(db.Document):
