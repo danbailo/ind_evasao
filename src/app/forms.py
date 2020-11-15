@@ -18,6 +18,10 @@ class RegisterForm(FlaskForm):
         "Repeat Password", validators=[DataRequired(), EqualTo("password")])
     submit = SubmitField("Register")
 
+    # when validate_<> pattern is used in methods with a name of a field
+    # thats was used in class, it will link the methods like as validator
+    # and call it automatically in your respectively form
+
     def validate_username(self, username):
         user = User.objects(username=username.data).first()
         if user is not None:
