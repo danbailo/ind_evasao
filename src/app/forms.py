@@ -4,18 +4,18 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField("Usuário", validators=[DataRequired()])
-    password = PasswordField("Senha", validators=[DataRequired()])
+    username = StringField("Usuário", validators=[DataRequired("Esse campo é necessário!")])
+    password = PasswordField("Senha", validators=[DataRequired("Esse campo é necessário!")])
     remember_me = BooleanField("Lembrar de Mim")
     submit = SubmitField("Entrar")
 
 class RegisterForm(FlaskForm):
-    name = StringField("Nome", validators=[DataRequired()])
-    username = StringField("Usuário", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Senha", validators=[DataRequired()])
+    name = StringField("Nome", validators=[DataRequired("Esse campo é necessário!")])
+    username = StringField("Usuário", validators=[DataRequired("Esse campo é necessário!")])
+    email = StringField("Email", validators=[DataRequired("Esse campo é necessário!"), Email()])
+    password = PasswordField("Senha", validators=[DataRequired("Esse campo é necessário!")])
     repeat_password = PasswordField(
-        "Repetir Senha", validators=[DataRequired(), EqualTo("password")])
+        "Repetir Senha", validators=[DataRequired("Esse campo é necessário!"), EqualTo("password")])
     submit = SubmitField("Registrar")
 
     # when validate_<> pattern is used in methods with a name of a field
@@ -33,12 +33,12 @@ class RegisterForm(FlaskForm):
             raise ValidationError("Por favor, escolha um nome de email diferente!")
 
 class ResetPasswordRequestForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired("Esse campo é necessário!"), Email()])
     submit = SubmitField('Solicitar Redefinição de Senha')
 
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Senha', validators=[DataRequired()])
+    password = PasswordField('Senha', validators=[DataRequired("Esse campo é necessário!")])
     repeat_password = PasswordField(
-        'Repetir Senha', validators=[DataRequired(), EqualTo('password')])
+        'Repetir Senha', validators=[DataRequired("Esse campo é necessário!"), EqualTo('password')])
     submit = SubmitField('Solicitar Redefinição de Senha')    
