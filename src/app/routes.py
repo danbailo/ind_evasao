@@ -152,17 +152,17 @@ def build_plot():
 
     x = list(all_answers.keys())
     y = list(all_answers.values()) #height
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(14, 11))
     bar_list = plt.bar(x,y, zorder=3)
     plt.grid(axis="both")
     for i, color in enumerate(colors):
         bar_list[i].set_color(color)    
-    plt.xticks(rotation=90)
+    # plt.xticks(rotation=90)
     max_y_value = max(y)
     int_yticks = list(range(0, max_y_value+1))
     plt.yticks(int_yticks)
-    plt.xlabel("Respostas em ordem")
-    plt.ylabel("Quantidade")    
+    plt.xlabel("Respostas em ordem", fontsize=20)
+    plt.ylabel("Quantidade", fontsize=20)    
     plt.savefig(img, format='jpg')
     img.seek(0)
 
