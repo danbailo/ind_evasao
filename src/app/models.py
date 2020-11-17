@@ -70,3 +70,14 @@ class Answer(db.Document):
     answer_11 = db.BooleanField(required=True)
     # timestamp = db.DateTimeField(default=datetime.utcnow, required=True)
     user_id = db.StringField(unique=True, required=True)
+
+    @staticmethod
+    def get_all_answers():
+        all_answers = {}
+        for answer in Answer.objects:
+            for i in range(1, 12):
+                if not all_answers.get("answer_"+str(i)):
+                    all_answers["answer_"+str(i)] = 0
+                if answer["answer_"+str(i)] == True:
+                    all_answers["answer_"+str(i)] += 1
+        return all_answers
