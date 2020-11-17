@@ -4,19 +4,19 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    remember_me = BooleanField("Remember me")
-    submit = SubmitField("Sign in")
+    username = StringField("Usuário", validators=[DataRequired()])
+    password = PasswordField("Senha", validators=[DataRequired()])
+    remember_me = BooleanField("Lembrar de Mim")
+    submit = SubmitField("Entrar")
 
 class RegisterForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    username = StringField("Username", validators=[DataRequired()])
+    name = StringField("Nome", validators=[DataRequired()])
+    username = StringField("Usuário", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField("Senha", validators=[DataRequired()])
     repeat_password = PasswordField(
-        "Repeat Password", validators=[DataRequired(), EqualTo("password")])
-    submit = SubmitField("Register")
+        "Repetir Senha", validators=[DataRequired(), EqualTo("password")])
+    submit = SubmitField("Registrar")
 
     # when validate_<> pattern is used in methods with a name of a field
     # thats was used in class, it will link the methods like as validator
@@ -25,20 +25,20 @@ class RegisterForm(FlaskForm):
     def validate_username(self, username):
         user = User.objects(username=username.data).first()
         if user is not None:
-            raise ValidationError("Please use a different username.")    
+            raise ValidationError("Por favor, escolha um nome de usuário diferente!")    
 
     def validate_email(self, email):
         user = User.objects(email=email.data).first()
         if user is not None:
-            raise ValidationError("Please use a different email address.")
+            raise ValidationError("Por favor, escolha um nome de email diferente!")
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    submit = SubmitField('Request Password Reset')
+    submit = SubmitField('Solicitar Redefinição de Senha')
 
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Senha', validators=[DataRequired()])
     repeat_password = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Request Password Reset')    
+        'Repetir Senha', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Solicitar Redefinição de Senha')    
