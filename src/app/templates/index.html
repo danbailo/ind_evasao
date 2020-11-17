@@ -3,8 +3,17 @@
 {% block content %}
     <h1 class="text-center">Sistema de formulário do projeto <code>Ind_Ev</code></h1>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} text-center" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <div class="container card-container">
         {% if current_user.is_anonymous %}
+
             <div class="row justify-content-center">
                 <div class="col-md-5 card-style">
                     {% include "register.html" %}
@@ -15,33 +24,21 @@
                     {% include "login.html" %}
                 </div>
             </div>
+
         {% else %}
+
             <div class="row justify-content-center mb-5">
                 <div class="col-md-5 card-style">    
                     {% include "profile.html" %}
                 </div>
             </div>
-
             <div class="row justify-content-center">
-                <!-- <div class="col-md-5 card-style">                    
-                </div>
-                <div class="col-md-1">
-                </div>                 -->
                 <div class="col-md-8 card-style">
                     {% include "answers.html" %}
                 </div>
             </div>
         
         {% endif %}
-
     </div>
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
 {% endblock content %}
