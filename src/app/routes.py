@@ -16,7 +16,12 @@ from app.models import User, Answer
 def index():
     login_form = LoginForm()
     register_form = RegisterForm()
-    return render_template("index.html", title="Home", login_form=login_form, register_form=register_form)
+    answers_form = AnswersForm()
+    return render_template("index.html",
+                           title="Home", 
+                           login_form=login_form, 
+                           register_form=register_form,
+                           answers_form=answers_form)
 
 
 @app.route("/login", methods=["GET", "POST"]) # allow methods GET and POST to this view
