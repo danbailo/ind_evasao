@@ -12,10 +12,28 @@
                 <div class="col-md-1">
                 </div>                
                 <div class="col-md-5 card-style">
-                    {% include "login.html" %}            
+                    {% include "login.html" %}
                 </div>
             </div>
+        {% else %}
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-5 card-style">    
+                    {% include "profile.html" %}
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <!-- <div class="col-md-5 card-style">                    
+                </div>
+                <div class="col-md-1">
+                </div>                 -->
+                <div class="col-md-8 card-style">
+                    {% include "answers.html" %}
+                </div>
+            </div>
+        
         {% endif %}
+
     </div>
 
     {% with messages = get_flashed_messages() %}
