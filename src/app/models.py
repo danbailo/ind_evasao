@@ -10,11 +10,13 @@ from app import app, db, login
 
 
 class User(UserMixin, db.Document):
-    _id = db.StringField(primary_key=True,required=True) #mongodb autoimplemnt this field
+    _id = db.StringField(primary_key=True, required=True) #mongodb autoimplemnt this field
     name = db.StringField(required=True)
     username = db.StringField(unique=True, required=True)
     password_hash = db.StringField(required=True)
     email = db.EmailField(unique=True, required=True)
+    # activated
+    # answered
 
     def set_id(self, _id):
         self._id = _id
@@ -47,8 +49,8 @@ def load_user(_id):
     return User.objects(_id=_id).first()
 
 
-class Form(db.Document):
-    _id = db.StringField(primary_key=True, default=uuid.uuid4().hex, required=True) #mongodb autoimplemnt this field
+class Answer(db.Document):
+    _id = db.StringField(primary_key=True, required=True) #mongodb autoimplemnt this field
     answer_1 = db.BooleanField(required=True)
     answer_2 = db.BooleanField(required=True)
     answer_3 = db.BooleanField(required=True)
@@ -60,5 +62,5 @@ class Form(db.Document):
     answer_9 = db.BooleanField(required=True)
     answer_10 = db.BooleanField(required=True)
     answer_11 = db.BooleanField(required=True)
-    timestamp = db.DateTimeField(default=datetime.utcnow, required=True)
+    # timestamp = db.DateTimeField(default=datetime.utcnow, required=True)
     user_id = db.StringField(unique=True, required=True)
