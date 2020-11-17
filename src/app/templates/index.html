@@ -1,6 +1,34 @@
 {% extends "base.html" %}
 
-{% block app_content %}
-    <h1>Hello, {{ current_user.name }}</h1>
+{% block content %}
+    <h1>Olá! Bem vindo ao sistema de formulário do projeto <code>Ind_Ev</code></h1>
 
-{% endblock app_content %}
+    <br>
+
+    <h4>O que é?</h4>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit vero officia id! Quaerat et explicabo quasi necessitatibus esse laborum laboriosam, nobis ipsum! Velit assumenda quam ipsum voluptatibus et in quod.        
+
+    <div class="container login-container">
+        {% if current_user.is_anonymous %}
+            <div class="row justify-content-center">
+                <div class="col-md-5 login-form-1">
+                    {% include "register.html" %}
+                </div>
+                <div class="col-md-1">
+                </div>                
+                <div class="col-md-5 login-form-2">
+                    {% include "login.html" %}            
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+{% endblock content %}
