@@ -145,12 +145,25 @@ def about():
     pass
 
 def build_plot():
+    colors = ['red', 'green', 'blue', 'purple', 'darkorange', 'brown', 'yellow', 'gray', 'cyan', 'olive', 'chocolate']
+    all_answers = Answer.get_all_answers()
+
     img = io.BytesIO()
 
-    y = [1,2,3,4,5]
-    x = [0,2,1,3,4]
-    plt.plot(x,y)
-    plt.savefig(img, format='png')
+    x = list(all_answers.keys())
+    y = list(all_answers.values()) #height
+    plt.figure(figsize=(12, 8))
+    bar_list = plt.bar(x,y, zorder=3)
+    plt.grid(axis="both")
+    for i, color in enumerate(colors):
+        bar_list[i].set_color(color)    
+    plt.xticks(rotation=90)
+    max_y_value = max(y)
+    int_yticks = list(range(0, max_y_value+1))
+    plt.yticks(int_yticks)
+    plt.xlabel("Respostas em ordem")
+    plt.ylabel("Quantidade")    
+    plt.savefig(img, format='jpg')
     img.seek(0)
 
     plot_url = base64.b64encode(img.getvalue()).decode()
