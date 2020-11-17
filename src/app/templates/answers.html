@@ -1,4 +1,4 @@
-<!-- <h1>Sign in</h1> -->
+<h2>Formulário de respostas</h2>
 <form action="{{ url_for('answers') }}" method="post" novalidate>
     {{ answers_form.hidden_tag() }}
 
@@ -56,6 +56,7 @@
         {{ answers_form.answer_11(class="form-check-input") }}
         {{ answers_form.answer_11.label(class="form-check-label") }}
     </div>    
-
-    {{ answers_form.submit(class="btn btn-primary") }}
+    <div class="row justify-content-center">
+        {{ answers_form.submit(class="btnSubmit") }}
+    </div>
 </form>
