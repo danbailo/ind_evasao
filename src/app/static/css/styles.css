@@ -50,3 +50,7 @@ body{
 .dropdown-item:active{
     background-color: #e83e8c;
 }
+
+.form-group.form-check{
+    margin-bottom: 4%;
+}
