@@ -1,22 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Olá! Bem vindo ao sistema de formulário do projeto <code>Ind_Ev</code></h1>
+    <h1 class="text-center">Sistema de formulário do projeto <code>Ind_Ev</code></h1>
 
-    <br>
-
-    <h4>O que é?</h4>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit vero officia id! Quaerat et explicabo quasi necessitatibus esse laborum laboriosam, nobis ipsum! Velit assumenda quam ipsum voluptatibus et in quod.        
-
-    <div class="container login-container">
+    <div class="container card-container">
         {% if current_user.is_anonymous %}
             <div class="row justify-content-center">
-                <div class="col-md-5 login-form-1">
+                <div class="col-md-5 card-style">
                     {% include "register.html" %}
                 </div>
                 <div class="col-md-1">
                 </div>                
-                <div class="col-md-5 login-form-2">
+                <div class="col-md-5 card-style">
                     {% include "login.html" %}            
                 </div>
             </div>
