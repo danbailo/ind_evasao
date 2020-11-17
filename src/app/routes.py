@@ -7,8 +7,8 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.email import send_password_reset_email
 from app.forms import (LoginForm, RegisterForm, ResetPasswordForm,
-                       ResetPasswordRequestForm)
-from app.models import User
+                       ResetPasswordRequestForm, AnswersForm)
+from app.models import User, Answer
 
 
 @app.route("/")
@@ -25,7 +25,7 @@ def login():
         return redirect(url_for("index"))
     register_form = RegisterForm()
     login_form = LoginForm()
-    if login_form.validate_on_submit():
+    if login_form.is_submitted():
         user = User.objects(username=login_form.username.data).first()
         if user is None or not user.check_password(login_form.password.data):
             flash('Usuário ou senha inválidos')
@@ -50,7 +50,7 @@ def register():
         return redirect(url_for("index"))
     register_form = RegisterForm()
     login_form = LoginForm()
-    if register_form.validate_on_submit():
+    if register_form.is_submitted():
         user = User(name=register_form.name.data,
                     username=register_form.username.data, 
                     email=register_form.email.data)
@@ -66,7 +66,7 @@ def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     form = ResetPasswordRequestForm()
-    if form.validate_on_submit():
+    if form.is_submitted():
         user = User.objects(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
@@ -85,9 +85,33 @@ def reset_password(token):
     if not user:
         return redirect(url_for('index'))
     form = ResetPasswordForm()
-    if form.validate_on_submit():
+    if form.is_submitted():
         user.set_password(form.password.data)
         user.save()
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+
+@app.route("/answers", methods=["GET","POST"])
+@login_required
+def answers():
+    answers_form = AnswersForm()
+    if answers_form.is_submitted():
+        answers = Answer(
+            _id=uuid.uuid4().hex,
+            answer_1=answers_form.answer_1.data, 
+            answer_2=answers_form.answer_2.data,
+            answer_3=answers_form.answer_3.data,
+            answer_4=answers_form.answer_4.data,
+            answer_5=answers_form.answer_5.data,
+            answer_6=answers_form.answer_6.data,
+            answer_7=answers_form.answer_7.data,
+            answer_8=answers_form.answer_8.data,
+            answer_9=answers_form.answer_9.data,
+            answer_10=answers_form.answer_10.data,
+            answer_11=answers_form.answer_11.data,
+            user_id=current_user._id
+        )
+        answers.save()
+        return redirect(url_for('index'))
+    return render_template("answers.html", title="Formulário de Respostas", answers_form=answers_form)
