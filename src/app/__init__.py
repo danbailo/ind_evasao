@@ -20,7 +20,7 @@ from app import errors, models, routes
 
 @app.shell_context_processor
 def make_shell_context():
-    return {"db": db, "User": models.User, "Form": models.Form}
+    return {"db": db, "User": models.User, "Answer": models.Answer}
 
 # sent a message to admin email reporting a database error for example
 if not app.debug:
