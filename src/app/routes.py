@@ -9,7 +9,9 @@ from app.email import send_password_reset_email
 from app.forms import (LoginForm, RegisterForm, ResetPasswordForm,
                        ResetPasswordRequestForm, AnswersForm)
 from app.models import User, Answer
-
+import io
+import matplotlib.pyplot as plt
+import base64
 
 @app.route("/")
 @app.route("/index")
@@ -101,7 +103,19 @@ def reset_password(token):
 @login_required
 def answers():
     if current_user.get_answer():
-        return redirect(url_for('index'))        
+
+        img = io.BytesIO()
+
+        y = [1,2,3,4,5]
+        x = [0,2,1,3,4]
+        plt.bar(x,y)
+        plt.savefig(img, format='png')
+        img.seek(0)
+
+        plot_url = base64.b64encode(img.getvalue()).decode()
+
+        return render_template("index.html", image=plot_url)
+
     answers_form = AnswersForm()
     if answers_form.validate_on_submit():
         answers = Answer(
@@ -129,3 +143,20 @@ def answers():
 @app.route("/about")
 def about():
     pass
+
+def build_plot():
+    img = io.BytesIO()
+
+    y = [1,2,3,4,5]
+    x = [0,2,1,3,4]
+    plt.plot(x,y)
+    plt.savefig(img, format='png')
+    img.seek(0)
+
+    plot_url = base64.b64encode(img.getvalue()).decode()
+
+    return plot_url
+
+@app.context_processor
+def build_plot_decorator():
+    return dict(image=build_plot())
