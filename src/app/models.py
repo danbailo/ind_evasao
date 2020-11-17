@@ -15,8 +15,8 @@ class User(UserMixin, db.Document):
     username = db.StringField(unique=True, required=True)
     password_hash = db.StringField(required=True)
     email = db.EmailField(unique=True, required=True)
+    answered = db.BooleanField(default=False, required=True)
     # activated
-    # answered
 
     def set_id(self, _id):
         self._id = _id
@@ -31,6 +31,12 @@ class User(UserMixin, db.Document):
         return jwt.encode(
             {"reset_password": self._id, "exp": time() + expires_in},
             app.config["SECRET_KEY"], algorithm="HS256").decode("utf-8")
+
+    def get_answer(self):
+        return self.answered
+
+    def set_answer(self, value):
+        self.answered = value
 
     @staticmethod
     def verify_reset_password_token(token):
