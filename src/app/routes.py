@@ -33,7 +33,7 @@ def login():
     if login_form.validate_on_submit():
         user = User.objects(username=login_form.username.data).first()
         if user is None or not user.check_password(login_form.password.data):
-            flash('Usuário ou senha inválidos')
+            flash('Usuário ou senha inválidos!', "danger")
             return redirect(url_for('index'))
         login_user(user, remember=login_form.remember_me.data)
         # when an user try to access a content that needs login
@@ -62,7 +62,7 @@ def register():
         user.set_password(register_form.password.data)
         user.set_id(uuid.uuid4().hex)
         user.save()
-        flash('Parabéns, agora você é um usuário registrado!')
+        flash('Parabéns, agora você é um usuário registrado!', "success")
         return redirect(url_for('index'))
     return render_template("index.html", register_form=register_form, login_form=login_form)
 
@@ -77,7 +77,7 @@ def reset_password_request():
             send_password_reset_email(user)
             # I'm not doing the condition for verify if the email exists, because
             # if I do it, an anonymous user can verify if an user have an account in my system.            
-        flash('Check your email for the instructions to reset your password')
+        flash('Check your email for the instructions to reset your password', "success")
         return redirect(url_for("login"))
     return render_template("reset_password_request.html",
                            title="Reset Password", form=form)
@@ -93,13 +93,15 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         user.save()
-        flash('Your password has been reset.')
+        flash('Your password has been reset.', "success")
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 
 @app.route("/answers", methods=["GET","POST"])
 @login_required
 def answers():
+    if current_user.get_answer():
+        return redirect(url_for('index'))        
     answers_form = AnswersForm()
     if answers_form.validate_on_submit():
         answers = Answer(
@@ -117,7 +119,10 @@ def answers():
             answer_11=answers_form.answer_11.data,
             user_id=current_user._id
         )
+        current_user.set_answer(True)
+        current_user.save()
         answers.save()
+        flash('Respota salva com sucesso!', "success")
         return redirect(url_for('index'))
     return render_template("answers.html", title="Formulário de Respostas", answers_form=answers_form)
 
