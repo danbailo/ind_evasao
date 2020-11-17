@@ -19,13 +19,13 @@ def index():
     return render_template("index.html", title="Home", login_form=login_form, register_form=register_form)
 
 
-@app.route("/login", methods=["POST"]) # allow methods GET and POST to this view
+@app.route("/login", methods=["GET", "POST"]) # allow methods GET and POST to this view
 def login():
     if current_user.is_authenticated: # if user try to navigates to /login
         return redirect(url_for("index"))
     register_form = RegisterForm()
     login_form = LoginForm()
-    if login_form.is_submitted():
+    if login_form.validate_on_submit():
         user = User.objects(username=login_form.username.data).first()
         if user is None or not user.check_password(login_form.password.data):
             flash('Usuário ou senha inválidos')
@@ -44,13 +44,13 @@ def logout():
     logout_user()
     return redirect(url_for("index"))
 
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     register_form = RegisterForm()
     login_form = LoginForm()
-    if register_form.is_submitted():
+    if register_form.validate_on_submit():
         user = User(name=register_form.name.data,
                     username=register_form.username.data, 
                     email=register_form.email.data)
@@ -66,7 +66,7 @@ def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     form = ResetPasswordRequestForm()
-    if form.is_submitted():
+    if form.validate_on_submit():
         user = User.objects(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
@@ -85,7 +85,7 @@ def reset_password(token):
     if not user:
         return redirect(url_for('index'))
     form = ResetPasswordForm()
-    if form.is_submitted():
+    if form.validate_on_submit():
         user.set_password(form.password.data)
         user.save()
         flash('Your password has been reset.')
@@ -96,7 +96,7 @@ def reset_password(token):
 @login_required
 def answers():
     answers_form = AnswersForm()
-    if answers_form.is_submitted():
+    if answers_form.validate_on_submit():
         answers = Answer(
             _id=uuid.uuid4().hex,
             answer_1=answers_form.answer_1.data, 
