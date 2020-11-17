@@ -115,3 +115,7 @@ def answers():
         answers.save()
         return redirect(url_for('index'))
     return render_template("answers.html", title="Formulário de Respostas", answers_form=answers_form)
+
+@app.route("/about")
+def about():
+    pass
