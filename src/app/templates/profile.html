@@ -1,1 +1,7 @@
-<p class="text-center">Olá {{ current_user.name }}!</p>
+<h4 class="text-center">Olá {{ current_user.name }}!</h4>
+<br>
+{% if current_user.get_answer() %}
+    <p>Muito obrigado por responder nosso formulário!</p>
+{% else %}
+    <p>Fique à vontade para responder nosso formulário!</p>
+{% endif %}
