@@ -23,9 +23,7 @@
         {{ login_form.submit(class="btnSubmit") }}
     </div>
 
-    <div>
-        <br>
-        Esqueceu sua senha?
-        <a href="{{ url_for('reset_password_request') }}">Clique aqui!</a>
+    <div class="row justify-content-center">        
+        <br>Esqueceu sua senha? &nbsp <a href="{{ url_for('reset_password_request') }}"><br>Clique aqui!</a>
     </div>
 </form>
