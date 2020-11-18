@@ -13,14 +13,14 @@ import io
 import matplotlib.pyplot as plt
 import base64
 
-@app.route("/")
 @app.route("/index")
+@app.route("/")
 def index():
     login_form = LoginForm()
     register_form = RegisterForm()
     answers_form = AnswersForm()
     return render_template("index.html",
-                           title="Home", 
+                           title="Início", 
                            login_form=login_form, 
                            register_form=register_form,
                            answers_form=answers_form)
@@ -102,20 +102,6 @@ def reset_password(token):
 @app.route("/answers", methods=["GET","POST"])
 @login_required
 def answers():
-    if current_user.get_answer():
-
-        img = io.BytesIO()
-
-        y = [1,2,3,4,5]
-        x = [0,2,1,3,4]
-        plt.bar(x,y)
-        plt.savefig(img, format='png')
-        img.seek(0)
-
-        plot_url = base64.b64encode(img.getvalue()).decode()
-
-        return render_template("index.html", image=plot_url)
-
     answers_form = AnswersForm()
     if answers_form.validate_on_submit():
         answers = Answer(
@@ -135,34 +121,34 @@ def answers():
         )
         current_user.set_answer(True)
         current_user.save()
-        answers.save()
+        answers.save()        
         flash('Respota salva com sucesso!', "success")
-        return redirect(url_for('index'))
-    return render_template("answers.html", title="Formulário de Respostas", answers_form=answers_form)
+    return redirect(url_for('index'))
+    # return render_template("index.html", title="Formulário de Respostas", answers_form=answers_form)
 
 @app.route("/about")
 def about():
     pass
 
 def build_plot():
-    colors = ['red', 'green', 'blue', 'purple', 'darkorange', 'brown', 'yellow', 'gray', 'cyan', 'olive', 'chocolate']
+    # colors = ['red', 'green', 'blue', 'purple', 'darkorange', 'brown', 'yellow', 'gray', 'cyan', 'olive', 'chocolate']
     all_answers = Answer.get_all_answers()
 
     img = io.BytesIO()
 
     x = list(all_answers.keys())
     y = list(all_answers.values()) #height
-    plt.figure(figsize=(14, 11))
-    bar_list = plt.bar(x,y, zorder=3)
+    plt.figure(figsize=(12, 8))
+    bar_list = plt.bar(x,y, zorder=3, color="purple", width=0.5)
     plt.grid(axis="both")
-    for i, color in enumerate(colors):
-        bar_list[i].set_color(color)    
-    # plt.xticks(rotation=90)
+    # for i, color in enumerate(colors):
+        # bar_list[i].set_color(color)    
+    plt.xticks(fontsize=15)
     max_y_value = max(y)
     int_yticks = list(range(0, max_y_value+1))
-    plt.yticks(int_yticks)
-    plt.xlabel("Respostas em ordem", fontsize=20)
-    plt.ylabel("Quantidade", fontsize=20)    
+    plt.yticks(int_yticks, fontsize=15)
+    plt.xlabel("Respostas", fontsize=15)
+    plt.ylabel("Quantidade", fontsize=15)    
     plt.savefig(img, format='jpg')
     img.seek(0)
 
@@ -173,3 +159,7 @@ def build_plot():
 @app.context_processor
 def build_plot_decorator():
     return dict(image=build_plot())
+
+@app.context_processor
+def get_n_answers():
+    return dict(n_answers=Answer.objects.count())
