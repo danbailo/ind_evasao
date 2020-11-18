@@ -47,9 +47,6 @@ class User(UserMixin, db.Document):
             return None
         return User.objects(_id=_id).first()
 
-    def __repr__(self):
-        return f"<User {self.username}>"
-
 @login.user_loader
 def load_user(_id):
     return User.objects(_id=_id).first()
@@ -68,7 +65,6 @@ class Answer(db.Document):
     answer_9 = db.BooleanField(required=True)
     answer_10 = db.BooleanField(required=True)
     answer_11 = db.BooleanField(required=True)
-    # timestamp = db.DateTimeField(default=datetime.utcnow, required=True)
     user_id = db.StringField(unique=True, required=True)
 
     @staticmethod
