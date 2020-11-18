@@ -7,7 +7,7 @@ body{
     margin-bottom: 5%;
 }
 .card-style{
-    font-weight: 500;
+    font-weight: 300;
     padding: 5%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     border-radius: 1em;
@@ -53,4 +53,12 @@ body{
 
 .form-group.form-check{
     margin-bottom: 4%;
+}
+
+.text-small{
+    font-size: 60%;
+}
+
+.text-without-weight{
+    font-weight: 300;
 }
