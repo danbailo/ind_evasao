@@ -13,6 +13,8 @@ app.config.from_object(Config())
 db = MongoEngine(app)
 login = LoginManager(app)
 login.login_view = "login"
+login.login_message = "Por favor, faça o login antes de acessar essa página!"
+login.login_message_category = "danger"
 mail = Mail(app)
 
 from app import errors, models, routes
