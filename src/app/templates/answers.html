@@ -61,7 +61,33 @@
             {{ answers_form.submit(class="btnSubmit") }}
         </div>
     </form>
-{% endif %}
-<h2 class="text-center">Obrigado por responder nosso formulário!</h2>
+{% else %}
+    <h4 class="text-center">Dê uma olhadinha no que nossos usuários estão respondendo!</h4> <br>
 
-<img src="data:image/jpg;base64,{{ image }}" class="img-fluid" alt="Answers">
+    <p class="text-center" style="font-weight: 300;">Até o momento tivemos <span style="font-weight: bold;">{{ n_answers }}</span> respostas!</p>
+
+    <img src="data:image/jpg;base64,{{ image }}" class="img-fluid" alt="Answers">
+
+    <div class="row justify-content-center">
+        <div class="container-md6">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-small">1. {{ answers_form.answer_1.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">2. {{ answers_form.answer_2.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">3. {{ answers_form.answer_3.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">4. {{ answers_form.answer_4.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">5. {{ answers_form.answer_5.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">6. {{ answers_form.answer_6.label(class="form-check-label") }}</li>
+            </ul>
+        </div>
+        <div class="container-md6">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-small">7. {{ answers_form.answer_7.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">8. {{ answers_form.answer_8.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">9. {{ answers_form.answer_9.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">10. {{ answers_form.answer_10.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small">11. {{ answers_form.answer_11.label(class="form-check-label") }}</li>
+                <li class="list-group-item text-small"></li>
+            </ul>
+        </div>    
+    </div>
+{% endif %}
