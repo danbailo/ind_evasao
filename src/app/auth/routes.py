@@ -66,8 +66,7 @@ def reset_password_request():
             # if I do it, an anonymous user can verify if an user have an account in my system.            
         flash('Verifique seu e-mail para obter as instruções para redefinir sua senha.', "success")
         return redirect(url_for("auth.login"))
-    return render_template("auth/reset_password_request.html",
-                           title="Reset Password", form=form)
+    return render_template("auth/reset_password_request.html", form=form)
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
