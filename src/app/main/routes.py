@@ -17,7 +17,6 @@ def index():
     register_form = RegisterForm()
     login_form = LoginForm()
     return render_template("index.html",
-                           title="Início",
                            answers_form=answers_form,
                            register_form=register_form,
                            login_form=login_form)
@@ -51,4 +50,4 @@ def answers():
 
 @bp.route("/about")
 def about():
-    pass
+    return render_template("about.html")
