@@ -17,7 +17,10 @@ login.login_message = "Por favor, faça o login antes de acessar essa página!"
 login.login_message_category = "danger"
 mail = Mail(app)
 
-from app import errors, models, routes
+from app.errors import bp as errors_bp
+app.register_blueprint(errors_bp)
+
+from app import models, routes
 
 
 @app.shell_context_processor
