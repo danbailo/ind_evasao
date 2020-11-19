@@ -15,7 +15,7 @@ class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired("Esse campo é necessário!"), Email()])
     password = PasswordField("Senha", validators=[DataRequired("Esse campo é necessário!")])
     repeat_password = PasswordField(
-        "Repetir Senha", validators=[DataRequired("Esse campo é necessário!"), EqualTo("password")])
+        "Repetir Senha", validators=[DataRequired("Esse campo é necessário!"), EqualTo('password', "As senhas precisam ser iguais!")])
     submit = SubmitField("Registrar")
 
     # when validate_<> pattern is used in methods with a name of a field
@@ -36,9 +36,8 @@ class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired("Esse campo é necessário!"), Email()])
     submit = SubmitField('Solicitar Redefinição de Senha')
 
-
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Senha', validators=[DataRequired("Esse campo é necessário!")])
     repeat_password = PasswordField(
-        'Repetir Senha', validators=[DataRequired("Esse campo é necessário!"), EqualTo('password')])
-    submit = SubmitField('Solicitar Redefinição de Senha')
+        'Repetir Senha', validators=[DataRequired("Esse campo é necessário!"), EqualTo('password', "As senhas precisam ser iguais!")])
+    submit = SubmitField('Redefinir Senha')
