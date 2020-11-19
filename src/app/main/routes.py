@@ -1,32 +1,30 @@
+import base64
+import io
 import uuid
 
-from flask import flash, redirect, render_template, request, url_for
+import matplotlib.pyplot as plt
+from app import db
+from app.auth.email import send_password_reset_email
+from app.main import bp
+from app.main.forms import AnswersForm
+from app.models import Answer, User
+from flask import (current_app, flash, redirect, render_template, request,
+                   url_for)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
 
-from app import app, db
-from app.email import send_password_reset_email
-from app.forms import AnswersForm
-from app.auth.forms import LoginForm, RegisterForm
-from app.models import User, Answer
-import io
-import matplotlib.pyplot as plt
-import base64
 
-@app.route("/index")
-@app.route("/")
+@bp.route("/index")
+@bp.route("/")
+@login_required
 def index():
-    login_form = LoginForm()
-    register_form = RegisterForm()
     answers_form = AnswersForm()
     return render_template("index.html",
-                           title="Início", 
-                           login_form=login_form, 
-                           register_form=register_form,
+                           title="Início",
                            answers_form=answers_form)
 
 
-@app.route("/answers", methods=["GET","POST"])
+@bp.route("/answers", methods=["GET","POST"])
 @login_required
 def answers():
     answers_form = AnswersForm()
@@ -50,10 +48,10 @@ def answers():
         current_user.save()
         answers.save()        
         flash('Respota salva com sucesso!', "success")
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
     # return render_template("index.html", title="Formulário de Respostas", answers_form=answers_form)
 
-@app.route("/about")
+@bp.route("/about")
 def about():
     pass
 
@@ -83,10 +81,10 @@ def build_plot():
 
     return plot_url
 
-@app.context_processor
-def build_plot_decorator():
-    return dict(image=build_plot())
+# @app.context_processor
+# def build_plot_decorator():
+#     return dict(image=build_plot())
 
-@app.context_processor
-def get_n_answers():
-    return dict(n_answers=Answer.objects.count())
+# @app.context_processor
+# def get_n_answers():
+#     return dict(n_answers=Answer.objects.count())

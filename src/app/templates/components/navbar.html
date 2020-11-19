@@ -8,17 +8,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ 'active' if request.path == url_for('index') else '' }}">
-                <a class="nav-link" href=" {{ url_for('index') }}">Início
-                    {% if request.path == url_for('index') %}
+            <li class="nav-item {{ 'active' if request.path == url_for('main.index') else '' }}">
+                <a class="nav-link" href=" {{ url_for('main.index') }}">Início
+                    {% if request.path == url_for('main.index') %}
                         <span class="sr-only">(current)</span>
                     {% endif %}
                 </a>
             </li>
 
-            <li class="nav-item {{ 'active' if request.path == url_for('about') else '' }}">
-                <a class="nav-link" href=" {{ url_for('about') }}">Sobre
-                    {% if request.path == url_for('about') %}
+            <li class="nav-item {{ 'active' if request.path == url_for('main.about') else '' }}">
+                <a class="nav-link" href=" {{ url_for('main.about') }}">Sobre
+                    {% if request.path == url_for('main.about') %}
                         <span class="sr-only">(current)</span>
                     {% endif %}
                 </a>
