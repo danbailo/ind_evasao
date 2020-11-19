@@ -65,8 +65,8 @@ def reset_password_request():
             # I'm not doing the condition for verify if the email exists, because
             # if I do it, an anonymous user can verify if an user have an account in my system.            
         flash('Check your email for the instructions to reset your password', "success")
-        return redirect(url_for("login"))
-    return render_template("reset_password_request.html",
+        return redirect(url_for("auth.login"))
+    return render_template("auth/reset_password_request.html",
                            title="Reset Password", form=form)
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -81,5 +81,5 @@ def reset_password(token):
         user.set_password(form.password.data)
         user.save()
         flash('Your password has been reset.', "success")
-        return redirect(url_for('login'))
-    return render_template('reset_password.html', form=form)
+        return redirect(url_for('auth.login'))
+    return render_template('auth/reset_password.html', form=form)
