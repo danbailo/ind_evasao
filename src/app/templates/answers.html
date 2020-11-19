@@ -1,6 +1,6 @@
 {% if not current_user.get_answer() %}
     <h2>Formulário de respostas</h2>
-    <form action="{{ url_for('answers') }}" method="post" novalidate>
+    <form action="{{ url_for('main.answers') }}" method="post" novalidate>
         {{ answers_form.hidden_tag() }}
 
         <div class="form-group form-check">
