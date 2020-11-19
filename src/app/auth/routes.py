@@ -64,7 +64,7 @@ def reset_password_request():
             send_password_reset_email(user)
             # I'm not doing the condition for verify if the email exists, because
             # if I do it, an anonymous user can verify if an user have an account in my system.            
-        flash('Check your email for the instructions to reset your password', "success")
+        flash('Verifique seu e-mail para obter as instruções para redefinir sua senha.', "success")
         return redirect(url_for("auth.login"))
     return render_template("auth/reset_password_request.html",
                            title="Reset Password", form=form)
@@ -80,6 +80,6 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         user.save()
-        flash('Your password has been reset.', "success")
+        flash('Sua senha foi redefinida com sucesso!', "success")
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
