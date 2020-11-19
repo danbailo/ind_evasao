@@ -1,14 +1,11 @@
-import base64
-import io
 import uuid
 
-import matplotlib.pyplot as plt
 from app import db
 from app.auth import bp
-# from app.email import send_password_reset_email
+from app.auth.email import send_password_reset_email
 from app.auth.forms import (LoginForm, RegisterForm, ResetPasswordForm,
                             ResetPasswordRequestForm)
-from app.models import Answer, User
+from app.models import User
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
