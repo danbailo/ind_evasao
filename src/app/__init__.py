@@ -32,8 +32,6 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
-    # from app import models, routes    
-
     # sent a message to admin email reporting a database error for example
     if not app.debug and not app.testing:
         if app.config["MAIL_SERVER"]:
