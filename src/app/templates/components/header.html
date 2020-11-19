@@ -1,0 +1,9 @@
+<h1 class="text-center">Sistema de formulário do projeto <code>Ind_Ev</code></h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} text-center" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

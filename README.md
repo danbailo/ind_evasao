@@ -8,3 +8,6 @@ Then you can just write the environment variable name and value in a .flaskenv f
     root/
     .flaskenv
         FLASK_APP=main.py
+
+# Things To Do
+* create a route `/auth` to organize views of authentications instead of call it in index page.
