@@ -2,6 +2,11 @@ from app import create_app, db
 from app.utils import build_plot
 from app.models import User, Answer
 
+# THINGS TO DO
+# ADD CAPTHA IN TO CONFIRM REQUEST RESET PASSWORD
+# CHANGE THE RENDER OF GRAPHIC TO CLIENT SIDE
+#
+
 app = create_app()
 
 @app.shell_context_processor
