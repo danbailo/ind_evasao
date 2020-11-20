@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.utils import build_plot
+from app.utils import get_answers_values
 from app.models import User, Answer
 
 # THINGS TO DO
@@ -17,5 +17,5 @@ def make_shell_context():
 
 @app.context_processor
 def make_app_context():
-    return dict(image=build_plot(),
-                n_answers=Answer.objects.count())
+    return dict(n_answers=Answer.objects.count(),
+                answers_values=get_answers_values())

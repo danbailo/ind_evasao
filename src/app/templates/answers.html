@@ -66,7 +66,10 @@
 
     <p class="text-center" style="font-weight: 300;">Até o momento tivemos <span style="font-weight: bold;">{{ n_answers }}</span> respostas!</p>
 
-    <img src="data:image/jpg;base64,{{ image }}" class="img-fluid" alt="Answers">
+    <meta id="answers_values_x" data-x="{{ answers_values[0] }}">
+    <meta id="answers_values_y" data-y="{{ answers_values[1] }}">
+
+    <canvas id="myChart" class="img-fluid" alt="Answers"></canvas>    
 
     <div class="row justify-content-center">
         <div class="container-md6">

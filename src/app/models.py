@@ -73,8 +73,8 @@ class Answer(db.Document):
         all_answers = {}
         for answer in Answer.objects:
             for i in range(1, 12):
-                if not all_answers.get(str(i)):
-                    all_answers[str(i)] = 0
+                if not all_answers.get(i):
+                    all_answers[i] = 0
                 if answer["answer_"+str(i)] == True:
-                    all_answers[str(i)] += 1
+                    all_answers[i] += 1
         return all_answers
