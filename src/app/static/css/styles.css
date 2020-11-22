@@ -62,3 +62,7 @@ body{
 .text-without-weight{
     font-weight: 300;
 }
+
+.img-small{
+    width: 35%;
+}
