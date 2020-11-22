@@ -1,6 +1,6 @@
 from app import create_app, db
-from app.utils import get_answers_values
-from app.models import User, Answer
+from app.models import Answer, User
+from app.utils import gen_randomic_answers, get_answers_values
 
 # THINGS TO DO
 # ADD CAPTHA IN TO CONFIRM REQUEST RESET PASSWORD
@@ -13,7 +13,8 @@ app = create_app()
 def make_shell_context():
     return dict(db=db,
                 User=User,
-                Answer=Answer)
+                Answer=Answer,
+                gen_randomic_answers=gen_randomic_answers)
 
 @app.context_processor
 def make_app_context():
