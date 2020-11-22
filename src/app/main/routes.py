@@ -16,7 +16,7 @@ def index():
     answers_form = AnswersForm()
     register_form = RegisterForm()
     login_form = LoginForm()
-    return render_template("index.html",
+    return render_template("main/index.html",
                            answers_form=answers_form,
                            register_form=register_form,
                            login_form=login_form)
