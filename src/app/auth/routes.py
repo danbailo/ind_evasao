@@ -51,7 +51,7 @@ def register():
         user.save()
         flash('Parabéns, agora você é um usuário registrado!', "success")
         return redirect(url_for('main.index'))
-    return render_template("index.html", register_form=register_form, login_form=login_form)
+    return render_template("main/index.html", register_form=register_form, login_form=login_form)
 
 @bp.route("/reset_password_request", methods=["GET", "POST"])
 def reset_password_request():
